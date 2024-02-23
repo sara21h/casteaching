@@ -22,25 +22,7 @@ Route::get('/', function () {
 
 Route::get('/videos/{id}', [VideoController::class, 'show']);
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
-
-Route::get('/prova', function () {
-    Video::create([
-       'title' => 'Ubuntu 101',
-        'description' => '# Here description',
-        'url' => 'https://www.youtube.com/watch?v=12345',
-        'published_at' => Carbon::parse('December 13, 2020'),
-        'previous' => null,
-        'next' => null,
-        'series_id' => 1
-    ]);
-});
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
 
