@@ -26,3 +26,11 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
+Route::get('/mockup', function () {
+    return view('video_mockup', [
+        'title' => 'Title',
+        'url' => 'https://www.youtube.com/embed/ofSbYUEml4c?controls=0',
+        'description' => 'DDESCRIPTION'
+    ]);
+});
+

@@ -30,7 +30,7 @@ class HelpersTest extends TestCase
         $this->assertNotNull($user);
         $this->assertEquals(config('casteaching.default_user.email'), $user->email);
         $this->assertEquals(config('casteaching.default_user.name'), $user->name);
-        $this->assertTrue(Hash::check('casteaching.default_user.password', $user->password));
+        $this->assertTrue(Hash::check(config('casteaching.default_user.password'), $user->password));
     }
 
     /**
