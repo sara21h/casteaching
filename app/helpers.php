@@ -45,7 +45,6 @@ if (! function_exists('create_regular_user')) {
             'email' => 'regular@casteaching.com',
             'password' => Hash::make('12345678'),
         ]);
-        $user->superadmin = true;
         $user->save();
         add_personal_team($user);
         return $user;
@@ -108,6 +107,28 @@ if (! function_exists('define_gates')) {
             }
         });
 
+    }
+}
+
+if (! function_exists('create_sample_videos')) {
+    function create_sample_videos()
+    {
+        $video1 = Video::create([
+            'title' => 'Ubuntu 101',
+            'description' => '# Here description',
+            'url' => 'https://www.youtube.com/watch?v=12345'
+        ]);
+        $video2 = Video::create([
+            'title' => 'Ubuntu 1012',
+            'description' => '# Here description',
+            'url' => 'https://www.youtube.com/watch?v=12345'
+        ]);
+        $video3 = Video::create([
+            'title' => 'Ubuntu 103',
+            'description' => '# Here description',
+            'url' => 'https://www.youtube.com/watch?v=12345'
+        ]);
+        return [$video1, $video2, $video3];
     }
 }
 
