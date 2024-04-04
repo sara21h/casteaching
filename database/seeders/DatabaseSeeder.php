@@ -11,13 +11,14 @@ use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
-    public function run(): void
+    /** @return void */
+    public function run()
     {
         create_default_user();
+        create_superadmin_user();
+        create_regular_user();
+        create_video_manager_user();
         create_default_videos();
-
+        create_permissions();
     }
 }

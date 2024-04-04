@@ -40,7 +40,7 @@ class VideoTest extends TestCase
      * @test
      */
     public function users_cannot_view_not_existing_videos(){
-        $response = $this->get('/videos/999');
+        $response = $this->get('/manage/999');
         $response->assertStatus(404);
     }
 }
