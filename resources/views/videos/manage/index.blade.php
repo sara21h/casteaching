@@ -4,6 +4,21 @@
     <div class="flex justify-center items-center">
         <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
             <div class="py-12 inline-block min-w-full sm:px-6 lg:px-8">
+                <h2 class="mb-4 text-xl tracking-wide">Crear videos</h2>
+                <div class="mb-12 border shadow p-4 rounded-lg">
+                    @can('videos_manage_create')
+                    <form class="grid grid-cols-1 gap-y-4 justify-center" data-qa="form_video_create" action="" method="POST">
+                        <label class="tracking-wide" style="" for="title">Títol</label>
+                        <input class="rounded-lg text-gray-500 text-sm" style="border: none; --tw-ring-color: #45B39D" id="title" name="title" type="text">
+                        <label class="tracking-wide" for="description">Description</label>
+                        <textarea class="rounded-lg text-gray-500 text-sm" style="border: none; --tw-ring-color: #45B39D" name="description" id="description" cols="30" rows="5"></textarea>
+                        <label class="tracking-wide" for="url">URL</label>
+                        <input class="rounded-lg text-gray-500 text-sm" style="border: none; --tw-ring-color: #45B39D" id="url" name="url" type="text">
+                        <button class="bg-white rounded-lg py-1 mx-64 text-sm font-light shadow" style="color: #566573; outline: none" type="submit">Crear</button>
+                    </form>
+                    @endcan
+                </div>
+                <h2 class="mb-4 text-center text-xl tracking-wide">Llistat dels videos</h2>
                 <div class="overflow-hidden">
                     <table class="min-w-full">
                         <thead class="bg-gray-200 border-b">
@@ -50,4 +65,5 @@
             </div>
         </div>
     </div>
+
 </x-casteaching-layout>
