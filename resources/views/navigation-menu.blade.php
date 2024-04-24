@@ -23,6 +23,11 @@
                             {{ __('Manage Videos') }}
                         </x-nav-link>
                     @endcan
+                    @can('users_manage_index')
+                        <x-nav-link href="/manage/users" :active="request()->routeIs('manage.users')">
+                            {{ __('Manage Users') }}
+                        </x-nav-link>
+                    @endcan
                 </div>
             </div>
             @if(Auth::check())
@@ -164,6 +169,9 @@
             </x-nav-link>
             <x-nav-link href="/manage/videos" :active="request()->routeIs('manage.videos')">
                 {{ __('Manage Videos') }}
+            </x-nav-link>
+            <x-nav-link href="/manage/users" :active="request()->routeIs('manage.users')">
+                {{ __('Manage Users') }}
             </x-nav-link>
         </div>
         @if(Auth::check())

@@ -68,6 +68,22 @@ if (! function_exists('create_video_manager_user')) {
     }
 }
 
+if (! function_exists('create_user_manager_user')) {
+    function create_user_manager_user() {
+        $user = User::create([
+            'name' => 'UsersManager',
+            'email' => 'usersmanager@casteaching.com',
+            'password' => Hash::make('12345678')
+        ]);
+
+        Permission::create(['name' => 'users_manage_index']);
+        $user->givePermissionTo('users_manage_index');
+
+        add_personal_team($user);
+        return $user;
+    }
+}
+
 if (! function_exists('create_superadmin_user')) {
     function create_superadmin_user()
     {
