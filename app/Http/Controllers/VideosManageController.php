@@ -14,7 +14,7 @@ class VideosManageController extends Controller
     {
         return view ('videos.manage.index',[
             'videos' => Video::all()
-    ]);
+        ]);
     }
 
     /**
@@ -30,7 +30,37 @@ class VideosManageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|string',
+            'description' => 'required|string',
+            'url' => 'required|url',
+        ]);
+
+        $url = $request->input('url');
+
+        $embed_url = $this->convertirAEmbed($url);
+
+
+        $video = Video::create([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'url' => $embed_url,
+        ]);
+        session()->flash('status', 'Video created successfully');
+        return redirect()->route('manage.videos');
+    }
+
+    private function convertirAEmbed($url)
+    {
+        $pattern = '/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/';
+
+        preg_match($pattern, $url, $matches);
+
+        if (isset($matches[1])) {
+            return 'https://www.youtube.com/embed/' . $matches[1];
+        } else {
+            return $url;
+        }
     }
 
     /**

@@ -141,3 +141,80 @@ if (! function_exists('create_permissions')) {
         Permission::firstOrCreate(['name' => 'videos_manage_create']);
     }
 }
+
+if (! function_exists('create_sample_users')) {
+    function create_sample_users()
+    {
+        $user1 = User::create([
+            'name' => 'user1',
+            'email' => 'user1@prova.com',
+            'password' => Hash::make('12345678')
+            ]);
+        $user2 = User::create([
+            'name' => 'user2',
+            'email' => 'user2@prova.com',
+            'password' => Hash::make('12345678')
+        ]);
+        $user3 = User::create([
+            'name' => 'user3',
+            'email' => 'user3@prova.com',
+            'password' => Hash::make('12345678')
+        ]);
+        return [$user1, $user2, $user3];
+    }
+}
+class DomainObject implements ArrayAccess, JsonSerializable
+{
+    protected $data = [];
+
+    public function __construct($data)
+    {
+        $this->data = $data;
+    }
+
+    public function __get($name)
+    {
+        if (isset($this->data[$name])) {
+            return $this->data[$name];
+        }
+    }
+    public function __set($name, $value)
+    {
+        $this->data[$name] = $value;
+    }
+
+    public function offsetExists($offset)
+    {
+        return array_key_exists($offset, $this->data);
+    }
+    public function offsetGet($offset)
+    {
+        return $this->data[$offset];
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        $this->data[$offset] = $value;
+    }
+
+    public function offsetUnset($offset)
+    {
+        unset($this->data[$offset]);
+    }
+
+    public function __toString()
+    {
+        return (string) collect($this->data);
+    }
+    public function jsonSerialize()
+    {
+        return $this->data;
+    }
+}
+
+if (! function_exists('objectify')){
+function objectify($array)
+    {
+        return new DomainObject($array);
+    }
+}
