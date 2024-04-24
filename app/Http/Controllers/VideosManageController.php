@@ -46,7 +46,7 @@ class VideosManageController extends Controller
             'description' => $request->input('description'),
             'url' => $embed_url,
         ]);
-        session()->flash('status', 'Video created successfully');
+        session()->flash('success', 'Video created successfully');
         return redirect()->route('manage.videos');
     }
 
@@ -90,8 +90,10 @@ class VideosManageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        Video::find($id)->delete();
+        session()->flash('deleted', 'Video deleted successfully');
+        return redirect()->route('manage.videos');
     }
 }
