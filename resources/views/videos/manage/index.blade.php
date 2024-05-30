@@ -28,7 +28,9 @@
                 <h2 class="mb-4 text-center text-xl tracking-wide">{{ isset($video) ? 'Editar vídeo' : 'Crear vídeo' }}</h2>
                 <div class="mb-12 border shadow p-6 rounded-lg">
                     @can('videos_manage_create')
-                        <form id="form" class="grid grid-cols-1 gap-y-4 justify-center" data-qa="form_video_create" action="{{ isset($video) ? route('videos.update', $video->id) : route('videos.store') }}" method="POST">
+                        <form id="form" class="grid grid-cols-1 gap-y-4 justify-center" data-qa="form_video_create"
+                              action="{{ isset($video) ? route('videos.update', $video->id) : route('videos.store') }}"
+                              method="POST">
                             @csrf
                             @if(isset($video))
                                 @method('PUT')
@@ -39,13 +41,13 @@
                             <textarea class="rounded-lg text-gray-500 text-sm" style="border: none; --tw-ring-color: #45B39D" name="description" id="description" cols="30" rows="5">{{ isset($video) ? $video->description : '' }}</textarea>
                             <label class="tracking-wide" for="url">URL</label>
                             <input class="rounded-lg text-gray-500 text-sm" style="border: none; --tw-ring-color: #45B39D" id="url" name="url" type="url" value="{{ isset($video) ? $video->url : '' }}">
-                            <button id="submitButton" class="bg-white rounded-lg py-1 my-2 mx-64 text-sm font-light shadow" style="color: #566573; outline: none" type="submit">{{ isset($video) ? 'Actualizar' : 'Crear' }}</button>
+                            <button id="submitButton" class="bg-white rounded-lg py-1 my-2 mx-64 text-sm font-light shadow" style="color: #566573; outline: none" type="button">{{ isset($video) ? 'Actualizar' : 'Crear' }}</button>
                         </form>
                     @endcan
                 </div>
                     <script>
                         function updateVideo() {
-                            document.getElementById('form').submit(); // Envía el formulario
+                            document.getElementById('form').submit();
                         }
                     </script>
 
@@ -75,7 +77,7 @@
                                             @method('DELETE')
                                             <button type="submit" class="border p-2 rounded-lg bg-red-100 hover:bg-red-50 hover:text-red-400">Borrar</button>
                                         </form>
-                                        <button class="border p-2 rounded-lg bg-gray-200 hover:bg-red-50 hover:text-gray-600" onclick="openEditModal({{ $video }})">Editar</button>
+                                        <button style="outline: none" class="border p-2 rounded-lg bg-gray-200 hover:bg-red-50 hover:text-gray-600" onclick="openEditModal({{ $video }})">Editar</button>
                                         <script>
                                             function openEditModal(video) {
                                                 const modal = document.getElementById('modal');
@@ -87,14 +89,21 @@
                                                 title.value = video.title;
                                                 description.value = video.description;
                                                 url.value = video.url;
-                                                form.action = `/videos/${video.id}`; // Establecer la acción del formulario para la actualización del video
-                                                form.method = 'PUT'; // Establecer el método HTTP como PUT
-                                                submitButton.innerText = 'Actualizar'; // Cambiar el texto del botón de enviar
-                                                submitButton.setAttribute('onclick', 'updateVideo()'); // Cambiar el evento onclick del botón de enviar
+                                                form.action = `/videos/${video.id}`;
+                                                form.method = 'POST';
+                                                submitButton.innerText = 'Actualizar';
+                                                submitButton.onclick = function() {
+                                                    form.method = 'POST';
+                                                    const input = document.createElement('input');
+                                                    input.setAttribute('type', 'hidden');
+                                                    input.setAttribute('name', '_method');
+                                                    input.setAttribute('value', 'PUT');
+                                                    form.appendChild(input);
+                                                    form.submit();
+                                                };
                                                 modal.style.display = 'block';
                                             }
                                         </script>
-
                                     </div>
                                 </td>
                             </tr>
