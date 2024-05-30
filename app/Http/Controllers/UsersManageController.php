@@ -82,15 +82,27 @@ class UsersManageController extends Controller
 
         $user = User::findOrFail($id);
 
+        // Actualizar los campos básicos del usuario
         $user->update([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
         ]);
 
-        session()->flash('success', 'Usuario editado correctamente');
+        // Actualizar el campo superadmin
+        if ($request->boolean('superadmin')) {
+            $user->superadmin = true;
+        } else {
+            $user->superadmin = null; // Asegúrate de manejar el caso en el que no esté marcado
+        }
+
+        // Guardar los cambios en la base de datos
+        $user->save();
+
+        session()->flash('success', 'Usuari editat correctament');
         return redirect()->route('manage.users');
     }
+
 
 
     public function destroy($id)

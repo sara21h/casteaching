@@ -41,6 +41,7 @@
                             <label class="tracking-wide" for="email">Email</label>
                             <input class="rounded-lg text-gray-500 text-sm" style="border: none; --tw-ring-color: #45B39D" id="email" name="email" type="email" value="{{ isset($user) ? $user->email : '' }}">
                             <label class="tracking-wide" for="password">Contrasenya</label>
+                            <p class="text-xs text-red-600">Ha de contindre mínim 8 caràcters.</p>
                             <input class="rounded-lg text-gray-500 text-sm" style="border: none; --tw-ring-color: #45B39D" id="password" name="password" type="password">
                             <label class="tracking-wide" for="superadmin">Superadmin</label>
                             <input type="hidden" name="superadmin" value="0"> <!-- Agrega un campo oculto con valor predeterminado 0 -->
@@ -68,7 +69,7 @@
                     });
                 </script>
 
-                <h2 class="mb-4 text-center text-xl tracking-wide">Lista de usuarios</h2>
+                <h2 class="mb-4 text-center text-xl tracking-wide">Llista d'usuaris</h2>
                 <div class="overflow-y-auto" style="max-height: 500px;">
                     <table class="min-w-full">
                         <thead class="bg-gray-200 border-b">
