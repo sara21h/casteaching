@@ -28,7 +28,7 @@ class VideosManageController extends Controller
             'title' => 'required|string',
             'description' => 'required|string',
             'url' => 'required|url',
-            'serie_id' => 'required|integer',
+            'serie_id' => 'nullable|integer',
         ]);
 
         // Create a new video
@@ -40,7 +40,7 @@ class VideosManageController extends Controller
         ]);
 
         // Redirect with success message
-        session()->flash('success', 'Video creado correctamente');
+        session()->flash('success', 'Video creat correctament');
         return redirect()->route('manage.videos');
     }
 
@@ -62,7 +62,7 @@ class VideosManageController extends Controller
             'title' => 'required|string',
             'description' => 'required|string',
             'url' => 'required|url',
-            'serie_id' => 'required|integer',
+            'serie_id' => 'nullable|integer',
         ]);
 
         $video = Video::findOrFail($id);
@@ -76,14 +76,14 @@ class VideosManageController extends Controller
         ]);
 
         // Redirect with success message
-        session()->flash('success', 'Video actualizado correctamente');
+        session()->flash('success', 'Video actualizat correctament');
         return redirect()->route('manage.videos');
     }
 
     public function destroy($id)
     {
         Video::findOrFail($id)->delete();
-        session()->flash('deleted', 'Video borrado correctamente');
+        session()->flash('deleted', 'Video borrat correctament');
         return redirect()->route('manage.videos');
     }
 }
