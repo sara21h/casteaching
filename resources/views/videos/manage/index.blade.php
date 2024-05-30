@@ -67,8 +67,8 @@
                         @foreach($videos as $video)
                             <tr class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100 cursor-pointer">
                                 <td class="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $video->id }}</td>
-                                <td class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap">{{ $video->title }}</td>
-                                <td class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap">{{ $video->description }}</td>
+                                <td class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap" onclick="redirectToVideo('{{ $video->id }}')">{{ $video->title }}</td>
+                                <td class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap" onclick="redirectToVideo('{{ $video->id }}')">{{ $video->description }}</td>
                                 <td class="text-sm text-gray-900 font-light px-2 py-4 whitespace-nowrap overflow-hidden text-ellipsis" style="max-width: 150px;">{{ $video->url }}</td>
                                 <td class="relative px-4 py-4">
                                     <div class="flex space-x-2">
@@ -77,9 +77,15 @@
                                             @method('DELETE')
                                             <button type="submit" class="border p-2 rounded-lg bg-red-100 hover:bg-red-50 hover:text-red-400">Borrar</button>
                                         </form>
-                                        <button style="outline: none" class="border p-2 rounded-lg bg-gray-200 hover:bg-red-50 hover:text-gray-600" onclick="openEditModal({{ $video }})">Editar</button>
+                                        <button style="outline: none" class="border p-2 rounded-lg bg-gray-200 hover:bg-red-50 hover:text-gray-600" onclick="openEditModal(event, {{ $video }})">Editar</button>
                                         <script>
-                                            function openEditModal(video) {
+                                            function redirectToVideo(videoId) {
+                                                window.location.href = `/videos/${videoId}`;
+                                            }
+                                        </script>
+                                        <script>
+                                            function openEditModal(event, video) {
+                                                event.preventDefault(); // Detener la acción predeterminada del enlace
                                                 const modal = document.getElementById('modal');
                                                 const title = document.getElementById('title');
                                                 const description = document.getElementById('description');
