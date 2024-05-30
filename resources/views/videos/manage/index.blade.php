@@ -1,9 +1,9 @@
 <x-casteaching-layout>
 
     <!-- component -->
-    <div class="flex justify-center items-center min-h-screen">
+    <div class="">
         <div class="w-full max-w-4xl mx-auto">
-            <div class="py-12 px-4">
+            <div class="py-16 px-4">
                 @if(session()->has('success'))
                     <div id="success" class="bg-green-100 rounded-lg border-blue-500 text-green-700 mb-4 px-4 py-4 text-center" role="alert">
                         <p class="font-bold">{{ session('success') }}</p>

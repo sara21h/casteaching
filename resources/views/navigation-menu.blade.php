@@ -13,11 +13,13 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('Home') }}
                     </x-nav-link>
-                    <x-nav-link href="/manage/series">
-                        {{ __('Series') }}
-                    </x-nav-link>
+                    @can('series_manage_index')
+                        <x-nav-link href="/manage/series" :active="request()->routeIs('manage.series')">
+                            {{ __('Series') }}
+                        </x-nav-link>
+                    @endcan
                     @can('videos_manage_index')
                         <x-nav-link href="/manage/videos" :active="request()->routeIs('manage.videos')">
                             {{ __('Videos') }}
@@ -162,9 +164,9 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
+                {{ __('Home') }}
             </x-responsive-nav-link>
-            <x-nav-link href="/manage/series">
+            <x-nav-link href="/manage/series" :active="request()->routeIs('manage.series')">
                 {{ __('Series') }}
             </x-nav-link>
             <x-nav-link href="/manage/videos" :active="request()->routeIs('manage.videos')">

@@ -1,9 +1,9 @@
 <x-casteaching-layout>
 
     <!-- component -->
-    <div class="flex justify-center items-center min-h-screen">
+    <div class="">
         <div class="w-full max-w-4xl mx-auto">
-            <div class="py-12 px-4">
+            <div class="py-16 px-4">
                 @if(session()->has('success'))
                     <div id="success" class="bg-green-100 rounded-lg border-blue-500 text-green-700 mb-4 px-4 py-4 text-center" role="alert">
                         <p class="font-bold">{{ session('success') }}</p>
@@ -64,8 +64,12 @@
                         @foreach($series as $serie)
                             <tr class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100 cursor-pointer">
                                 <td class="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $serie->id }}</td>
-                                <td class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap">{{ $serie->nom }}</td>
-                                <td class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap">{{ $serie->descripcio }}</td>
+                                <td class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap">
+                                    <a href="/series/{{ $serie->id }}">{{ $serie->nom }}</a>
+                                </td>
+                                <td class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap">
+                                    <a href="/series/{{ $serie->id }}">{{ $serie->descripcio }}</a>
+                                </td>
                                 <td class="relative px-4 py-4">
                                     <div class="flex space-x-2">
                                         <form action="{{ route('series.destroy', $serie->id) }}" method="POST">
@@ -117,5 +121,3 @@
     </div>
 
 </x-casteaching-layout>
-
-
