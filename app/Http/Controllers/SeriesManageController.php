@@ -33,13 +33,11 @@ class SeriesManageController extends Controller
         $request->validate([
             'nom' => 'required|string',
             'descripcio' => 'nullable|string',
-            'videos_id' => 'nullable|exists:videos,id'
         ]);
 
         $serie = Serie::create([
             'nom' => $request->input('nom'),
             'descripcio' => $request->input('descripcio'),
-            'videos_id' => $request->input('videos_id')
         ]);
 
         session()->flash('success', 'Serie creada correctament');
@@ -65,18 +63,17 @@ class SeriesManageController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Serie $serie)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'nom' => 'required|string',
             'descripcio' => 'nullable|string',
-            'videos_id' => 'nullable|exists:videos,id'
         ]);
+        $serie = Serie::findOrFail($id);
 
         $serie->update([
             'nom' => $request->input('nom'),
             'descripcio' => $request->input('descripcio'),
-            'videos_id' => $request->input('videos_id')
         ]);
 
         session()->flash('success', 'Serie actualitzada correctament');

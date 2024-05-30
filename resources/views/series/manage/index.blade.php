@@ -90,16 +90,16 @@
                                                 form.action = `/series/${serie.id}`;
 
                                                 // Include the method spoofing input
-                                                if (!document.querySelector('input[name="_method"]')) {
-                                                    const methodInput = document.createElement('input');
-                                                    methodInput.setAttribute('type', 'hidden');
-                                                    methodInput.setAttribute('name', '_method');
-                                                    methodInput.setAttribute('value', 'PUT');
-                                                    form.appendChild(methodInput);
-                                                }
+                                                submitButton.onclick = function() {
+                                                    form.method = 'POST';
+                                                    const input = document.createElement('input');
+                                                    input.setAttribute('type', 'hidden');
+                                                    input.setAttribute('name', '_method');
+                                                    input.setAttribute('value', 'PUT');
+                                                    form.appendChild(input);
+                                                    form.submit();
+                                                };
 
-                                                // Set form method to POST
-                                                form.method = 'POST';
 
                                                 // Change submit button text
                                                 submitButton.innerText = 'Actualizar';
