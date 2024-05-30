@@ -80,17 +80,18 @@ class UsersManageController extends Controller
             'password' => 'required|string',
         ]);
 
-        $video = User::findOrFail($id);
+        $user = User::findOrFail($id);
 
-        $video->update([
+        $user->update([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'password' => $request->input('password'),
+            'password' => Hash::make($request->input('password')),
         ]);
 
-        session()->flash('success', 'Usuari editat correctament');
-        return redirect()->route('manage.user');
+        session()->flash('success', 'Usuario editado correctamente');
+        return redirect()->route('manage.users');
     }
+
 
     public function destroy($id)
     {

@@ -35,6 +35,7 @@
                             @if(isset($user))
                                 @method('PUT')
                             @endif
+                            <input type="hidden" name="_method" value="PUT">
                             <label class="tracking-wide" for="name">Nom</label>
                             <input class="rounded-lg text-gray-500 text-sm" style="border: none; --tw-ring-color: #45B39D" id="name" name="name" type="text" value="{{ isset($user) ? $user->name : '' }}">
                             <label class="tracking-wide" for="email">Email</label>
@@ -96,7 +97,7 @@
                                         <button style="outline: none" class="border p-2 rounded-lg bg-gray-200 hover:bg-red-50 hover:text-gray-600" onclick="openEditModal(event, {{ $user }})">Editar</button>
                                         <script>
                                             function openEditModal(event, user) {
-                                                event.preventDefault(); // Detener la acción predeterminada del enlace
+                                                event.preventDefault();
                                                 const modal = document.getElementById('modal');
                                                 const name = document.getElementById('name');
                                                 const email = document.getElementById('email');
@@ -104,21 +105,23 @@
                                                 const superadmin = document.getElementById('superadmin');
                                                 const form = document.getElementById('form');
                                                 const submitButton = document.getElementById('submitButton');
+
+                                                // Llenar los campos del formulario con los datos del usuario
                                                 name.value = user.name;
                                                 email.value = user.email;
+                                                password.value = user.password;
                                                 superadmin.checked = user.superadmin;
+
+                                                // Establecer la acción del formulario para la edición del usuario
                                                 form.action = `/users/${user.id}`;
-                                                form.method = 'POST';
+
+                                                // Cambiar el método del formulario a PUT
+                                                form.method = 'POST';  // Cambiar a POST
+
+                                                // Cambiar el texto del botón de enviar
                                                 submitButton.innerText = 'Actualizar';
-                                                submitButton.onclick = function() {
-                                                    form.method = 'POST';
-                                                    const input = document.createElement('input');
-                                                    input.setAttribute('type', 'hidden');
-                                                    input.setAttribute('name', '_method');
-                                                    input.setAttribute('value', 'PUT');
-                                                    form.appendChild(input);
-                                                    form.submit();
-                                                };
+
+                                                // Mostrar el modal
                                                 modal.style.display = 'block';
                                             }
                                         </script>
