@@ -1,12 +1,12 @@
 <x-casteaching-layout>
 
     <!-- component -->
-    <div class="flex justify-center items-center">
-        <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
-            <div class="py-12 inline-block min-w-full sm:px-6 lg:px-8">
+    <div class="flex justify-center items-center min-h-screen">
+        <div class="w-full max-w-4xl mx-auto">
+            <div class="py-12 px-4">
                 @if(session()->has('success'))
-                    <div id="success" class="bg-green-100 rounded-lg border-blue-500 text-green-700 mb-4 px-4 py-4" role="alert">
-                        <p class="font-bold text-center">Usuari creat correctament!</p>
+                    <div id="success" class="bg-green-100 rounded-lg border-blue-500 text-green-700 mb-4 px-4 py-4 text-center" role="alert">
+                        <p class="font-bold">{{ session('success') }}</p>
                     </div>
                     <script>
                         setTimeout(function() {
@@ -15,8 +15,8 @@
                     </script>
                 @endif
                 @if(session()->has('deleted'))
-                    <div id="deleted" class="bg-red-100 rounded-lg border-blue-500 text-red-700 mb-4 px-4 py-4" role="alert">
-                        <p class="font-bold text-center">Usuari borrat correctament!</p>
+                    <div id="deleted" class="bg-red-100 rounded-lg border-blue-500 text-red-700 mb-4 px-4 py-4 text-center" role="alert">
+                        <p class="font-bold">{{ session('deleted') }}</p>
                     </div>
                     <script>
                         setTimeout(function() {
@@ -25,71 +25,107 @@
                     </script>
                 @endif
 
-
-                <h2 class="mb-4 text-xl tracking-wide">Crear usuari</h2>
-                <div class="mb-12 border shadow p-4 rounded-lg">
-                    @can('videos_manage_create')
-                        <form class="grid grid-cols-1 gap-y-4 justify-center" data-qa="form_video_create" action="#" method="POST">
+                <h2 class="mb-4 text-center text-xl tracking-wide">{{ isset($user) ? 'Editar usuari' : 'Crear usuari' }}</h2>
+                <div class="mb-12 border shadow p-6 rounded-lg">
+                    @can('users_manage_create')
+                        <form id="form" class="grid grid-cols-1 gap-y-4 justify-center" data-qa="form_user_create"
+                              action="{{ isset($user) ? route('users.update', $user->id) : route('users.store') }}"
+                              method="POST">
                             @csrf
-                            <label class="tracking-wide" style="" for="name">Nom</label>
-                            <input class="rounded-lg text-gray-500 text-sm" style="border: none; --tw-ring-color: #45B39D" id="name" name="name" type="text">
+                            @if(isset($user))
+                                @method('PUT')
+                            @endif
+                            <label class="tracking-wide" for="name">Nom</label>
+                            <input class="rounded-lg text-gray-500 text-sm" style="border: none; --tw-ring-color: #45B39D" id="name" name="name" type="text" value="{{ isset($user) ? $user->name : '' }}">
                             <label class="tracking-wide" for="email">Email</label>
-                            <input class="rounded-lg text-gray-500 text-sm" style="border: none; --tw-ring-color: #45B39D" id="email" name="email" type="text">
+                            <input class="rounded-lg text-gray-500 text-sm" style="border: none; --tw-ring-color: #45B39D" id="email" name="email" type="email" value="{{ isset($user) ? $user->email : '' }}">
                             <label class="tracking-wide" for="password">Contrasenya</label>
-                            <input class="rounded-lg text-gray-500 text-sm" style="border: none; --tw-ring-color: #45B39D" id="password" name="password" type="text">
+                            <input class="rounded-lg text-gray-500 text-sm" style="border: none; --tw-ring-color: #45B39D" id="password" name="password" type="password">
                             <label class="tracking-wide" for="superadmin">Superadmin</label>
-                            <input class="rounded-lg text-gray-500 text-sm" style="border: none; --tw-ring-color: #45B39D" id="superadmin" name="superadmin" type="number">
-                            <button class="bg-white rounded-lg py-1 my-2 mx-64 text-sm font-light shadow" style="color: #566573; outline: none" type="submit">Crear</button>
+                            <input type="hidden" name="superadmin" value="0"> <!-- Agrega un campo oculto con valor predeterminado 0 -->
+                            <input class="rounded-lg text-gray-500 text-sm" style="border: none; --tw-ring-color: #45B39D" id="superadmin" name="superadmin" type="checkbox" {{ isset($user) && $user->superadmin ? 'checked' : '' }}>
+                            <button id="submitButton" class="bg-white rounded-lg py-1 my-2 mx-64 text-sm font-light shadow" style="color: #566573; outline: none" type="submit">{{ isset($user) ? 'Actualizar' : 'Crear' }}</button>
                         </form>
                     @endcan
                 </div>
-                <h2 class="mb-4 text-center text-xl tracking-wide">Llistat dels usuaris</h2>
-                <div class="overflow-hidden">
+                <script>
+                    function updateUser() {
+                        document.getElementById('form').submit();
+                    }
+                </script>
+                    <script>
+                        const superadminCheckbox = document.getElementById('superadmin');
+                        const hiddenSuperadminField = document.querySelector('input[name="superadmin"]');
+
+                        superadminCheckbox.addEventListener('change', function() {
+                            hiddenSuperadminField.value = this.checked ? 'true' : 'false';
+                        });
+
+                        // Actualizar el valor del campo oculto cada vez que se envíe el formulario
+                        document.getElementById('form').addEventListener('submit', function() {
+                            hiddenSuperadminField.value = superadminCheckbox.checked ? 'true' : 'false';
+                        });
+                    </script>
+
+                    <h2 class="mb-4 text-center text-xl tracking-wide">Lista de usuarios</h2>
+                <div class="overflow-y-auto" style="max-height: 500px;">
                     <table class="min-w-full">
                         <thead class="bg-gray-200 border-b">
                         <tr>
-                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                Id
-                            </th>
-                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                Nom
-                            </th>
-                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                Email
-                            </th>
-                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                Contrasenya
-                            </th>
-                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                Superadmin
-                            </th>
-                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-
-                            </th>
+                            <th scope="col" class="text-sm font-medium text-gray-900 px-4 py-4 text-left">Id</th>
+                            <th scope="col" class="text-sm font-medium text-gray-900 px-4 py-4 text-left">Nom</th>
+                            <th scope="col" class="text-sm font-medium text-gray-900 px-4 py-4 text-left">Email</th>
+                            <th scope="col" class="text-sm font-medium text-gray-900 px-4 py-4 text-left">Superadmin</th>
+                            <th scope="col" class="text-sm font-medium text-gray-900 px-4 py-4 text-left">Accions</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($users as $user)
-                            <tr class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
-                                <td class="px-6 pb-4 pt-10 whitespace-nowrap text-sm font-medium text-gray-900">{{ $user->id }}</td>
-                                <td class="text-sm text-gray-900 font-light px-6 pb-4 pt-10 whitespace-nowrap">
-                                    {{ $user->name }}
-                                </td>
-                                <td class="text-sm text-gray-900 font-light px-6 pb-4 pt-10 whitespace-nowrap">
-                                    {{ $user->email }}
-                                </td>
-                                <td class="text-sm text-gray-900 font-light px-2 pb-4 pt-10 whitespace-nowrap">
-                                    {{ $user->password }}
-                                </td>
-                                <td class="text-sm text-gray-900 font-light px-2 pb-4 pt-10 whitespace-nowrap">
-                                    {{ $user->superadmin }}
-                                </td>
-                                <td class="text-sm text-gray-900 font-light px-6 pb-4 pt-10 whitespace-nowrap">
-
+                            <tr class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100 cursor-pointer">
+                                <td class="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $user->id }}</td>
+                                <td class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap">{{ $user->name }}</td>
+                                <td class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap">{{ $user->email }}</td>
+                                <td class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap">{{ $user->superadmin }}</td>
+                                <td class="relative px-4 py-4">
+                                    <div class="flex space-x-2">
+                                        <form action="{{ route('users.destroy', $user->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="border p-2 rounded-lg bg-red-100 hover:bg-red-50 hover:text-red-400">Borrar</button>
+                                        </form>
+                                        <button style="outline: none" class="border p-2 rounded-lg bg-gray-200 hover:bg-red-50 hover:text-gray-600" onclick="openEditModal(event, {{ $user }})">Editar</button>
+                                        <script>
+                                            function openEditModal(event, user) {
+                                                event.preventDefault(); // Detener la acción predeterminada del enlace
+                                                const modal = document.getElementById('modal');
+                                                const name = document.getElementById('name');
+                                                const email = document.getElementById('email');
+                                                const password = document.getElementById('password');
+                                                const superadmin = document.getElementById('superadmin');
+                                                const form = document.getElementById('form');
+                                                const submitButton = document.getElementById('submitButton');
+                                                name.value = user.name;
+                                                email.value = user.email;
+                                                superadmin.checked = user.superadmin;
+                                                form.action = `/users/${user.id}`;
+                                                form.method = 'POST';
+                                                submitButton.innerText = 'Actualizar';
+                                                submitButton.onclick = function() {
+                                                    form.method = 'POST';
+                                                    const input = document.createElement('input');
+                                                    input.setAttribute('type', 'hidden');
+                                                    input.setAttribute('name', '_method');
+                                                    input.setAttribute('value', 'PUT');
+                                                    form.appendChild(input);
+                                                    form.submit();
+                                                };
+                                                modal.style.display = 'block';
+                                            }
+                                        </script>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
-                        <!-- Resto de las filas -->
                         </tbody>
                     </table>
                 </div>
@@ -98,3 +134,4 @@
     </div>
 
 </x-casteaching-layout>
+
