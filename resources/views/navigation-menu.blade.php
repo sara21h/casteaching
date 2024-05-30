@@ -16,16 +16,16 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     <x-nav-link href="/videos/1">
-                        {{ __('Videos 1') }}
+                        {{ __('Series') }}
                     </x-nav-link>
                     @can('videos_manage_index')
                         <x-nav-link href="/manage/videos" :active="request()->routeIs('manage.videos')">
-                            {{ __('Manage Videos') }}
+                            {{ __('Videos') }}
                         </x-nav-link>
                     @endcan
                     @can('users_manage_index')
                         <x-nav-link href="/manage/users" :active="request()->routeIs('manage.users')">
-                            {{ __('Manage Users') }}
+                            {{ __('Usuaris') }}
                         </x-nav-link>
                     @endcan
                 </div>
@@ -165,13 +165,13 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
             <x-nav-link href="/videos/1">
-                {{ __('Videos 1') }}
+                {{ __('Series') }}
             </x-nav-link>
             <x-nav-link href="/manage/videos" :active="request()->routeIs('manage.videos')">
-                {{ __('Manage Videos') }}
+                {{ __('Videos') }}
             </x-nav-link>
             <x-nav-link href="/manage/users" :active="request()->routeIs('manage.users')">
-                {{ __('Manage Users') }}
+                {{ __('Usuaris') }}
             </x-nav-link>
         </div>
         @if(Auth::check())
