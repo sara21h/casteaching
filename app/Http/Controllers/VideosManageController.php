@@ -77,12 +77,9 @@ class VideosManageController extends Controller
     public function edit($id)
     {
         $video = Video::findOrFail($id);
-        return view('videos.manage.edit', compact('video'));
+        return response()->json($video);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
         $request->validate([
