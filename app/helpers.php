@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Serie;
 use App\Models\Team;
 use App\Models\User;
 use App\Models\Video;
@@ -32,7 +33,7 @@ if (! function_exists('create_default_videos')) {
             'published_at' => Carbon::parse('December 13, 2020 8:00pm'),
             'previous' => null,
             'next' => null,
-            'series_id' => 1
+            'serie_id' => null
         ]);
     }
 }
@@ -166,6 +167,17 @@ if (! function_exists('create_sample_videos')) {
             'url' => 'https://www.youtube.com/watch?v=12345'
         ]);
         return [$video1, $video2, $video3];
+    }
+}
+
+if (! function_exists('create_series')) {
+    function create_series()
+    {
+        $serie1 = Serie::create([
+            'nom' => 'SERIE 1 JEJE',
+            'descripcio' => 'Descripció serie 1',
+        ]);
+        return $serie1;
     }
 }
 

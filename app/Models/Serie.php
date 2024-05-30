@@ -5,16 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Video extends Model
+class Serie extends Model
 {
     use HasFactory;
     protected $guarded = [];
     //protected $fillable = ['title', 'description'];
-    protected $dates = ['published_at'];
 
-    public function series()
+    public function videos()
     {
-        return $this->belongsTo(Serie::class);
+        return $this->hasMany(Video::class);
     }
-
 }

@@ -19,7 +19,8 @@ return new class extends Migration
             $table->dateTime('published_at')->nullable();
             $table->string('previous')->nullable();
             $table->string('next')->nullable();
-            $table->unsignedBigInteger('series_id')->nullable();
+            $table->unsignedBigInteger('serie_id')->nullable();
+            $table->foreign('serie_id')->references('id')->on('series')->onDelete('set null');
             $table->timestamps();
         });
     }
