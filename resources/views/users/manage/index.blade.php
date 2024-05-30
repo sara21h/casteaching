@@ -54,21 +54,21 @@
                         document.getElementById('form').submit();
                     }
                 </script>
-                    <script>
-                        const superadminCheckbox = document.getElementById('superadmin');
-                        const hiddenSuperadminField = document.querySelector('input[name="superadmin"]');
+                <script>
+                    const superadminCheckbox = document.getElementById('superadmin');
+                    const hiddenSuperadminField = document.querySelector('input[name="superadmin"]');
 
-                        superadminCheckbox.addEventListener('change', function() {
-                            hiddenSuperadminField.value = this.checked ? 'true' : 'false';
-                        });
+                    superadminCheckbox.addEventListener('change', function() {
+                        hiddenSuperadminField.value = this.checked ? 'true' : 'false';
+                    });
 
-                        // Actualizar el valor del campo oculto cada vez que se envíe el formulario
-                        document.getElementById('form').addEventListener('submit', function() {
-                            hiddenSuperadminField.value = superadminCheckbox.checked ? 'true' : 'false';
-                        });
-                    </script>
+                    // Actualizar el valor del campo oculto cada vez que se envíe el formulario
+                    document.getElementById('form').addEventListener('submit', function() {
+                        hiddenSuperadminField.value = superadminCheckbox.checked ? 'true' : 'false';
+                    });
+                </script>
 
-                    <h2 class="mb-4 text-center text-xl tracking-wide">Lista de usuarios</h2>
+                <h2 class="mb-4 text-center text-xl tracking-wide">Lista de usuarios</h2>
                 <div class="overflow-y-auto" style="max-height: 500px;">
                     <table class="min-w-full">
                         <thead class="bg-gray-200 border-b">
@@ -137,4 +137,3 @@
     </div>
 
 </x-casteaching-layout>
-
