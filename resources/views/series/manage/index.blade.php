@@ -35,7 +35,6 @@
                             @if(isset($serie))
                                 @method('PUT')
                             @endif
-                            <input type="hidden" name="_method" value="PUT">
                             <label class="tracking-wide" for="nom">Nom</label>
                             <input class="rounded-lg text-gray-500 text-sm" style="border: none; --tw-ring-color: #45B39D" id="nom" name="nom" type="text" value="{{ isset($serie) ? $serie->nom : '' }}">
                             <label class="tracking-wide" for="descripcio">Descripció</label>
@@ -58,7 +57,6 @@
                             <th scope="col" class="text-sm font-medium text-gray-900 px-4 py-4 text-left">Id</th>
                             <th scope="col" class="text-sm font-medium text-gray-900 px-4 py-4 text-left">Nom</th>
                             <th scope="col" class="text-sm font-medium text-gray-900 px-4 py-4 text-left">Descripció</th>
-                            <th scope="col" class="text-sm font-medium text-gray-900 px-4 py-4 text-left">ID del vídeo relacionat</th>
                             <th scope="col" class="text-sm font-medium text-gray-900 px-4 py-4 text-left">Accions</th>
                         </tr>
                         </thead>
@@ -68,7 +66,6 @@
                                 <td class="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $serie->id }}</td>
                                 <td class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap">{{ $serie->nom }}</td>
                                 <td class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap">{{ $serie->descripcio }}</td>
-                                <td class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap">{{ $serie->videos_id }}</td>
                                 <td class="relative px-4 py-4">
                                     <div class="flex space-x-2">
                                         <form action="{{ route('series.destroy', $serie->id) }}" method="POST">
@@ -80,29 +77,32 @@
                                         <script>
                                             function openEditModal(event, serie) {
                                                 event.preventDefault();
-                                                const modal = document.getElementById('modal');
                                                 const nom = document.getElementById('nom');
                                                 const descripcio = document.getElementById('descripcio');
-                                                const videos_id = document.getElementById('videos_id');
                                                 const form = document.getElementById('form');
                                                 const submitButton = document.getElementById('submitButton');
 
-                                                // Llenar los campos del formulario con los datos de la serie
+                                                // Set form values
                                                 nom.value = serie.nom;
                                                 descripcio.value = serie.descripcio;
-                                                videos_id.value = serie.videos_id;
 
-                                                // Establecer la acción del formulario para la edición de la serie
+                                                // Set form action to the update route
                                                 form.action = `/series/${serie.id}`;
 
-                                                // Cambiar el método del formulario a PUT
-                                                form.method = 'POST';  // Cambiar a POST
+                                                // Include the method spoofing input
+                                                if (!document.querySelector('input[name="_method"]')) {
+                                                    const methodInput = document.createElement('input');
+                                                    methodInput.setAttribute('type', 'hidden');
+                                                    methodInput.setAttribute('name', '_method');
+                                                    methodInput.setAttribute('value', 'PUT');
+                                                    form.appendChild(methodInput);
+                                                }
 
-                                                // Cambiar el texto del botón de enviar
+                                                // Set form method to POST
+                                                form.method = 'POST';
+
+                                                // Change submit button text
                                                 submitButton.innerText = 'Actualizar';
-
-                                                // Mostrar el modal
-                                                modal.style.display = 'block';
                                             }
                                         </script>
                                     </div>

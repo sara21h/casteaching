@@ -86,10 +86,11 @@ class SeriesManageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Serie $serie)
+    public function destroy($id)
     {
-        $serie->delete();
+        Serie::find($id)->delete();
         session()->flash('deleted', 'Serie eliminada correctament');
         return redirect()->route('manage.series');
     }
+
 }
