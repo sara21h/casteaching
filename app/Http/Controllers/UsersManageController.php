@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Tests\Feature\Users\UsersManageControllerTest;
 
 class UsersManageController extends Controller
@@ -28,6 +29,18 @@ class UsersManageController extends Controller
     public function store(Request $request)
     {
         //
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        add_personal_team($user);
+
+
+        session()->flash('status', 'Creat correctament');
+
+        return redirect()->route('manage.users');
     }
 
     public function show($id)
@@ -47,6 +60,8 @@ class UsersManageController extends Controller
 
     public function destroy($id)
     {
-        //
+        User::find($id)->delete();
+        session()->flash('status', 'Borrat correctament');
+        return redirect()->route('manage.users');
     }
 }

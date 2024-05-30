@@ -74,18 +74,38 @@ class VideosManageController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $video = Video::findOrFail($id);
+        return view('videos.manage.edit', compact('video'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title' => 'required|string',
+            'description' => 'required|string',
+            'url' => 'required|url',
+        ]);
+
+        $video = Video::findOrFail($id);
+
+        $url = $request->input('url');
+        $embed_url = $this->convertirAEmbed($url);
+
+        $video->update([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'url' => $embed_url,
+        ]);
+
+        session()->flash('success', 'Video updated successfully');
+        return redirect()->route('manage.videos');
     }
+
 
     /**
      * Remove the specified resource from storage.
