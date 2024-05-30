@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('nom');
             $table->text('descripcio')->nullable();
+            $table->unsignedBigInteger('videos_id')->nullable();
+            $table->foreign('videos_id')->references('id')->on('videos')->onDelete('set null');
             $table->timestamps();
         });
     }

@@ -15,7 +15,7 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link href="/videos/1">
+                    <x-nav-link href="/manage/series">
                         {{ __('Series') }}
                     </x-nav-link>
                     @can('videos_manage_index')
@@ -164,7 +164,7 @@
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-nav-link href="/videos/1">
+            <x-nav-link href="/manage/series">
                 {{ __('Series') }}
             </x-nav-link>
             <x-nav-link href="/manage/videos" :active="request()->routeIs('manage.videos')">
