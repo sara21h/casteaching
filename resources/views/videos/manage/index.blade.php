@@ -98,7 +98,7 @@
                                                 const title = document.getElementById('title');
                                                 const description = document.getElementById('description');
                                                 const url = document.getElementById('url');
-                                                const serie_id = document.getElementById('serie_id');
+                                                const serie_id = document.getElementById('series');
                                                 const form = document.getElementById('form');
                                                 const submitButton = document.getElementById('submitButton');
 
@@ -112,16 +112,11 @@
                                                 form.action = `/videos/${video.id}`;
 
                                                 // Include the method spoofing input
-                                                submitButton.onclick = function()
-                                                {
-                                                    form.method = 'POST';
-                                                    const input = document.createElement('input');
-                                                    input.setAttribute('type', 'hidden');
-                                                    input.setAttribute('name', '_method');
-                                                    input.setAttribute('value', 'PUT');
-                                                    form.appendChild(input);
-                                                    form.submit();
-                                                };
+                                                const methodInput = document.createElement('input');
+                                                methodInput.setAttribute('type', 'hidden');
+                                                methodInput.setAttribute('name', '_method');
+                                                methodInput.setAttribute('value', 'PUT');
+                                                form.appendChild(methodInput);
 
                                                 // Change submit button text
                                                 submitButton.innerText = 'Actualizar';
