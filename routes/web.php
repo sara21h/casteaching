@@ -20,18 +20,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [SerieController::class, 'index']);
+
 
 Route::get('/videos/{id}', [VideoController::class, 'show']);
 Route::get('/series/{id}', [SerieController::class, 'show'])->name('series.show');
 
 Route::get('/manage/videos', [VideosManageController::class, 'index'])->middleware(['can:videos_manage_index']) -> name('manage.videos');
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })-> name('dashboard');
+
+    Route::get('/dashboard', [SerieController::class, 'index'])->name('dashboard');
 
 
     Route::get('/manage/videos', [VideosManageController::class, 'index'])->middleware(['can:videos_manage_index'])

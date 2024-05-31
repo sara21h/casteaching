@@ -13,4 +13,10 @@ class SerieController extends Controller
             'serie' => Serie::findOrFail($id)
         ]);
     }
+    // Method to show all series
+    public function index()
+    {
+        $series = Serie::all();
+        return view('dashboard', ['series' => $series]);
+    }
 }
