@@ -37,6 +37,9 @@
                             @endif
                             <label class="tracking-wide" for="nom">Nom</label>
                             <input class="rounded-lg text-gray-500 text-sm" style="border: none; --tw-ring-color: #45B39D" id="nom" name="nom" type="text" value="{{ isset($serie) ? $serie->nom : '' }}">
+                            <label class="tracking-wide" for="imatge_url">Imatge URL</label>
+                            <p class="text-xs text-red-600">Ha de ser en format URL.</p>
+                            <input class="rounded-lg text-gray-500 text-sm" style="border: none; --tw-ring-color: #45B39D" id="imatge_url" name="imatge_url" type="text" value="{{ isset($serie) ? $serie->imatge_url : '' }}">
                             <label class="tracking-wide" for="descripcio">Descripció</label>
                             <input class="rounded-lg text-gray-500 text-sm" style="border: none; --tw-ring-color: #45B39D" id="descripcio" name="descripcio" type="text" value="{{ isset($serie) ? $serie->descripcio : '' }}">
                             <button id="submitButton" class="bg-white rounded-lg py-1 my-2 mx-64 text-sm font-light shadow" style="color: #566573; outline: none" type="submit">{{ isset($serie) ? 'Actualizar' : 'Crear' }}</button>
@@ -57,6 +60,7 @@
                             <th scope="col" class="text-sm font-medium text-gray-900 px-4 py-4 text-left">Id</th>
                             <th scope="col" class="text-sm font-medium text-gray-900 px-4 py-4 text-left">Nom</th>
                             <th scope="col" class="text-sm font-medium text-gray-900 px-4 py-4 text-left">Descripció</th>
+                            <th scope="col" class="text-sm font-medium text-gray-900 px-4 py-4 text-left">Imatge URL</th>
                             <th scope="col" class="text-sm font-medium text-gray-900 px-4 py-4 text-left">Accions</th>
                         </tr>
                         </thead>
@@ -69,6 +73,9 @@
                                 </td>
                                 <td class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap">
                                     <a href="/series/{{ $serie->id }}">{{ $serie->descripcio }}</a>
+                                </td>
+                                <td class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap">
+                                    <a href="/series/{{ $serie->id }}">{{ $serie->imatge_url }}</a>
                                 </td>
                                 <td class="relative px-4 py-4">
                                     <div class="flex space-x-2">

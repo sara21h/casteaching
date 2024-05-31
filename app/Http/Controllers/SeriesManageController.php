@@ -33,11 +33,13 @@ class SeriesManageController extends Controller
         $request->validate([
             'nom' => 'required|string',
             'descripcio' => 'nullable|string',
+            'imatge_url' => 'nullable|url',
         ]);
 
         $serie = Serie::create([
             'nom' => $request->input('nom'),
             'descripcio' => $request->input('descripcio'),
+            'imatge_url' => $request->input('imatge_url')
         ]);
 
         session()->flash('success', 'Serie creada correctament');
@@ -68,12 +70,14 @@ class SeriesManageController extends Controller
         $request->validate([
             'nom' => 'required|string',
             'descripcio' => 'nullable|string',
+            'imatge_url' => 'nullable|url',
         ]);
         $serie = Serie::findOrFail($id);
 
         $serie->update([
             'nom' => $request->input('nom'),
             'descripcio' => $request->input('descripcio'),
+            'imatge_url' => $request->input('imatge_url')
         ]);
 
         session()->flash('success', 'Serie actualitzada correctament');
