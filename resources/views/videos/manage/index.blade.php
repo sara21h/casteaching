@@ -119,7 +119,7 @@
                                                 form.appendChild(methodInput);
 
                                                 // Change submit button text
-                                                submitButton.innerText = 'Actualizar';
+                                                submitButton.innerText = 'Actualitzar';
                                             }
                                         </script>
                                     </div>

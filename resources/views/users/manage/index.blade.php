@@ -120,7 +120,7 @@
                                                 form.method = 'POST';  // Cambiar a POST
 
                                                 // Cambiar el texto del botón de enviar
-                                                submitButton.innerText = 'Actualizar';
+                                                submitButton.innerText = 'Actualitzar';
 
                                                 // Mostrar el modal
                                                 modal.style.display = 'block';

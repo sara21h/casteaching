@@ -72,7 +72,7 @@
 
             const prevButton = document.createElement('button');
             prevButton.textContent = 'Detràs';
-            prevButton.classList.add('px-4', 'py-2', 'mx-1', 'font-semibold', 'text-gray-800', 'bg-gray-200', 'rounded');
+            prevButton.classList.add('px-4', 'py-2', 'mx-1', 'font-semibold', 'text-gray-800', 'bg-gray-200', 'rounded', 'mr-2', 'text-sm');
             prevButton.addEventListener('click', () => {
                 if (currentPage > 1) {
                     currentPage--;
@@ -84,7 +84,7 @@
 
             const nextButton = document.createElement('button');
             nextButton.textContent = 'Davant';
-            nextButton.classList.add('px-4', 'py-2', 'mx-1', 'font-semibold', 'text-gray-800', 'bg-gray-200', 'rounded');
+            nextButton.classList.add('px-4', 'py-2', 'mx-1', 'font-semibold', 'text-gray-800', 'bg-gray-200', 'rounded', 'text-sm');
             nextButton.addEventListener('click', () => {
                 if (currentPage < totalPages) {
                     currentPage++;

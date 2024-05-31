@@ -7,9 +7,6 @@ use Illuminate\Http\Request;
 
 class SeriesManageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         return view('series.manage.index', [
@@ -36,10 +33,12 @@ class SeriesManageController extends Controller
             'imatge_url' => 'nullable|url',
         ]);
 
+        $imatge_url = $request->input('imatge_url') ?? 'https://www.wfla.com/wp-content/uploads/sites/71/2023/05/GettyImages-1389862392.jpg?w=2560&h=1440&crop=1';
+
         $serie = Serie::create([
             'nom' => $request->input('nom'),
             'descripcio' => $request->input('descripcio'),
-            'imatge_url' => $request->input('imatge_url')
+            'imatge_url' => $imatge_url
         ]);
 
         session()->flash('success', 'Serie creada correctament');
@@ -72,12 +71,15 @@ class SeriesManageController extends Controller
             'descripcio' => 'nullable|string',
             'imatge_url' => 'nullable|url',
         ]);
+
         $serie = Serie::findOrFail($id);
+
+        $imatge_url = $request->input('imatge_url') ?? 'https://www.wfla.com/wp-content/uploads/sites/71/2023/05/GettyImages-1389862392.jpg?w=2560&h=1440&crop=1';
 
         $serie->update([
             'nom' => $request->input('nom'),
             'descripcio' => $request->input('descripcio'),
-            'imatge_url' => $request->input('imatge_url')
+            'imatge_url' => $imatge_url
         ]);
 
         session()->flash('success', 'Serie actualitzada correctament');
@@ -89,9 +91,8 @@ class SeriesManageController extends Controller
      */
     public function destroy($id)
     {
-        Serie::find($id)->delete();
+        Serie::findOrFail($id)->delete();
         session()->flash('deleted', 'Serie eliminada correctament');
         return redirect()->route('manage.series');
     }
-
 }

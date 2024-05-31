@@ -42,7 +42,7 @@
                             <input class="rounded-lg text-gray-500 text-sm" style="border: none; --tw-ring-color: #45B39D" id="imatge_url" name="imatge_url" type="text" value="{{ isset($serie) ? $serie->imatge_url : '' }}">
                             <label class="tracking-wide" for="descripcio">Descripció</label>
                             <input class="rounded-lg text-gray-500 text-sm" style="border: none; --tw-ring-color: #45B39D" id="descripcio" name="descripcio" type="text" value="{{ isset($serie) ? $serie->descripcio : '' }}">
-                            <button id="submitButton" class="bg-white rounded-lg py-1 my-2 mx-64 text-sm font-light shadow" style="color: #566573; outline: none" type="submit">{{ isset($serie) ? 'Actualizar' : 'Crear' }}</button>
+                            <button id="submitButton" class="bg-white rounded-lg py-1 my-2 mx-64 text-sm font-light shadow" style="color: #566573; outline: none" type="submit">{{ isset($serie) ? 'Actualitzar' : 'Crear' }}</button>
                         </form>
                     @endcan
                 </div>
