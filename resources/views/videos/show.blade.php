@@ -6,7 +6,7 @@
 
             <div class="max-w-7xl bg-white rounded-lg shadow-lg px-4 pt-4 pb-12 xl:py-4 md:px-6 xl:px-15 2xl:px-20 2xl:py-10 m-4 rounded-t-none w-3/4">
                 <div class="flex items-center justify-between">
-                    <h2 class="text-gray-900 uppercase font-bold text-sm tracking-tight border-b border-gray-300 mr-4 overflow-hidden">
+                    <h2 class="text-gray-900 text-base uppercase font-bold  tracking-tight border-b border-gray-300 mr-4 overflow-hidden">
                         {{ $video->title }}
                     </h2>
                     <svg id="arrow" class="w-6 h-6 text-gray-500 transform rotate-90 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" onclick="toggleContent()">
@@ -15,7 +15,7 @@
                 </div>
                 <div id="content" style="display: none;" class="mt-4 overflow-auto">
                     <div class="flex justify-center prose-sm md:prose lg:prose-xl 2xl:prose-2xl overflow-hidden">
-                        <div class="px-4 bg-white py-2 shadow rounded-lg overflow-hidden">
+                        <div class="px-4 bg-white py-2 shadow rounded-lg ">
                             <dt class="text-sm font-medium text-gray-500 inline-block align-text-middle text-center">
                                 Data de publicació
                             </dt>
@@ -25,6 +25,7 @@
                         </div>
                     </div>
                     <div class="prose-sm md:prose lg:prose-xl 2xl:prose-2xl mx-auto px-4 pt-4 pb-2 md:px-6 xl:px-15 xl:py-5 2xl:px-20 2xl:py-10">
+                        <p class="font-semibold">DESCRIPCIÓ:</p>
                         {!! Str::markdown($video->description) !!}
                     </div>
                 </div>

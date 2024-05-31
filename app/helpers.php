@@ -23,20 +23,18 @@ if (! function_exists('create_default_user')) {
     }
 }
 
-if (! function_exists('create_default_videos')) {
-    function create_default_videos()
+if (! function_exists('create_series')) {
+    function create_series()
     {
-        Video::create([
-            'title' => 'Ubuntu 101',
-            'description' => '# Here description',
-            'url' => 'https://www.youtube.com/watch?v=12345',
-            'published_at' => Carbon::parse('December 13, 2020 8:00pm'),
-            'previous' => null,
-            'next' => null,
-            'serie_id' => null
+        $serie1 = Serie::create([
+            'nom' => 'SERIE 1 JEJE',
+            'descripcio' => 'Descripció serie 1',
+            'imatge_url' => 'https://static.vecteezy.com/system/resources/previews/002/098/203/non_2x/silver-tabby-cat-sitting-on-green-background-free-photo.jpg',
         ]);
+        return $serie1;
     }
 }
+
 
 if (! function_exists('create_regular_user')) {
     function create_regular_user()
@@ -153,33 +151,26 @@ if (! function_exists('create_sample_videos')) {
     {
         $video1 = Video::create([
             'title' => 'Ubuntu 101',
-            'description' => '# Here description',
-            'url' => 'https://www.youtube.com/watch?v=12345'
+            'description' => 'Descripcio 1',
+            'url' => 'https://www.youtube.com/embed/s1h0SIt0g3I?start=10&list=PLyasg1A0hpk2vR_ocOHavVJiybYoB05pR&index=1',
+            'published_at' => now(),
         ]);
         $video2 = Video::create([
-            'title' => 'Ubuntu 1012',
-            'description' => '# Here description',
-            'url' => 'https://www.youtube.com/watch?v=12345'
+            'title' => 'Ubuntu 102',
+            'description' => 'Descripcio 2',
+            'url' => 'https://www.youtube.com/embed/s1h0SIt0g3I?start=10&list=PLyasg1A0hpk2vR_ocOHavVJiybYoB05pR&index=1',
+            'published_at' => now(),
         ]);
         $video3 = Video::create([
             'title' => 'Ubuntu 103',
-            'description' => '# Here description',
-            'url' => 'https://www.youtube.com/watch?v=12345'
+            'description' => 'Descripcio 3',
+            'url' => 'https://www.youtube.com/embed/s1h0SIt0g3I?start=10&list=PLyasg1A0hpk2vR_ocOHavVJiybYoB05pR&index=1',
+            'published_at' => now(),
         ]);
         return [$video1, $video2, $video3];
     }
 }
 
-if (! function_exists('create_series')) {
-    function create_series()
-    {
-        $serie1 = Serie::create([
-            'nom' => 'SERIE 1 JEJE',
-            'descripcio' => 'Descripció serie 1',
-        ]);
-        return $serie1;
-    }
-}
 
 
 if (! function_exists('create_sample_users')) {

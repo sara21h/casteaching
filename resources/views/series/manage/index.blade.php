@@ -68,7 +68,7 @@
                         @foreach($series as $serie)
                             <tr class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100 cursor-pointer">
                                 <td class="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $serie->id }}</td>
-                                <td class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap">
+                                <td class="text-sm font-light px-4 py-4 whitespace-nowrap text-blue-600">
                                     <a href="/series/{{ $serie->id }}">{{ $serie->nom }}</a>
                                 </td>
                                 <td class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap">

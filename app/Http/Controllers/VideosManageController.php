@@ -37,12 +37,14 @@ class VideosManageController extends Controller
             'description' => $request->description,
             'url' => $request->url,
             'serie_id' => $request->serie_id,
+            'published_at' => now(), // Set the published_at field to the current date and time
         ]);
 
         // Redirect with success message
         session()->flash('success', 'Video creat correctament');
         return redirect()->route('manage.videos');
     }
+
 
     public function show($id)
     {
