@@ -20,7 +20,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 p-6 lg:p-8" id="series-container">
                     <!-- Aquí se cargarán las series -->
                 </div>
-                <div class="flex justify-center mt-4" id="pagination-container">
+                <div class="flex justify-center m-4 p-2" id="pagination-container">
                     <!-- Aquí se mostrará la paginación -->
                 </div>
             </div>
@@ -42,8 +42,11 @@
             const currentPageSeries = series.slice(start, end);
 
             currentPageSeries.forEach(serie => {
-                const serieElement = document.createElement('div');
-                serieElement.classList.add('bg-white', 'p-4', 'rounded-lg', 'shadow');
+                const serieElement = document.createElement('a'); // Cambio aquí
+                serieElement.href = `/series/${serie.id}`; // Cambio aquí
+                serieElement.classList.add('serie-link'); // Cambio aquí
+                const div = document.createElement('div');
+                div.classList.add('bg-white', 'p-4', 'rounded-lg', 'shadow');
 
                 const img = document.createElement('img');
                 img.src = serie.imatge_url;
@@ -54,11 +57,13 @@
                 h2.textContent = serie.nom;
                 h2.classList.add('mt-2', 'text-xl', 'text-center', 'font-semibold', 'text-gray-800');
 
-                serieElement.appendChild(img);
-                serieElement.appendChild(h2);
+                div.appendChild(img);
+                div.appendChild(h2);
+                serieElement.appendChild(div); // Cambio aquí
                 seriesContainer.appendChild(serieElement);
             });
         };
+
 
         const renderPagination = () => {
             const totalPages = Math.ceil(series.length / itemsPerPage);
