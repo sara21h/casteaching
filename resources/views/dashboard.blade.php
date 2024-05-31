@@ -17,14 +17,18 @@
                     </div>
                 </div>
 
-                <div class="bg-gray-200 bg-opacity-25 grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 p-6 lg:p-8">
-                    @foreach($series as $serie)
-                        <div class="bg-white p-4 rounded-lg shadow">
-                            <img src="{{ $serie->imatge_url }}" alt="{{ $serie->nom }}" class="w-full h-auto object-cover">
-                            <h2 class="mt-2 text-xl font-semibold text-gray-800">{{ $serie->nom }}</h2>
-                        </div>
-                    @endforeach
+                <div class=""> <!-- Ajusta max-h-64 según el tamaño deseado -->
+                    <div class="bg-gray-200 bg-opacity-25 grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 p-6 lg:p-8">
+                        @foreach($series as $serie)
+                            <div class="bg-white p-4 rounded-lg shadow">
+                                <img src="{{ $serie->imatge_url }}" alt="{{ $serie->nom }}" class="w-full h-auto object-cover">
+                                <h2 class="mt-2 text-xl text-center font-semibold text-gray-800">{{ $serie->nom }}</h2>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
+
+
             </div>
         </div>
     </div>
