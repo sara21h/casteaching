@@ -8,7 +8,7 @@
                 @else
                     <ul>
                         @foreach($serie->videos as $video)
-                            <li>{{ $video->title }}</li>
+                            <li><a class="text-blue-500 font-semibold underline" href="{{ url('/videos/' . $video->id) }}">{{ $video->title }}</a></li>
                         @endforeach
                     </ul>
                 @endif
