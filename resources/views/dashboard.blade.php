@@ -11,7 +11,7 @@
                 <div class="p-6 lg:p-8 bg-white border-b border-gray-200">
                     <div class="flex items-center">
                         <x-application-logo class="block h-12 w-auto" />
-                        <h1 class="ml-4 mt-2 text-2xl font-medium text-gray-900">
+                        <h1 class="ml-4 text-2xl font-medium text-red-600">
                             Series de videos
                         </h1>
                     </div>
