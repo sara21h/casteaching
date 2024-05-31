@@ -1,7 +1,7 @@
 <x-casteaching-layout>
     <div class="flex flex-col gap-y-2 space-x-4 space-y-4 lg:space-x-6 lg:space-y-4 xl:space-x-15 xl:space-y-5 2xl:space-x-20 2xl:space-y-10">
         <div class="flex flex-col gap-y-2 items-center">
-            <h2 class="mt-12">Videos de la serie</h2>
+            <h2 class="mt-12">Videos de la serie:</h2>
             <ul>
                 @if($serie->videos->isEmpty())
                     <p class="text-xs text-red-400">No hi ha ningun video.</p>
@@ -22,9 +22,16 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </div>
-                <div id="content" style="display: none;" class="mt-4 overflow-auto">
-                    <div class="prose-sm md:prose lg:prose-xl 2xl:prose-2xl mx-auto px-4 pt-4 pb-2 md:px-6 xl:px-15 xl:py-5 2xl:px-20 2xl:py-10">
-                        {!! Str::markdown($serie->descripcio) !!}
+                <div id="content" class="mt-4 overflow-auto">
+                    @if($serie->descripcio)
+                        <div class="prose-sm md:prose lg:prose-xl 2xl:prose-2xl mx-auto px-4 pt-4 pb-2 md:px-6 xl:px-15 xl:py-5 2xl:px-20 2xl:py-10">
+                            {!! Str::markdown($serie->descripcio) !!}
+                        </div>
+                    @else
+                        <p class="text-sm text-gray-500">No hi ha descripció</p>
+                    @endif
+                    <div class="flex justify-center">
+                        <img src="{{ $serie->imatge_url }}" alt="{{ $serie->nom }}" class="w-full h-auto object-cover">
                     </div>
                 </div>
             </div>
